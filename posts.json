@@ -2,12 +2,13 @@
   {
     "slug": "hola-mundo",
     "title": "Hola mundo",
-    "date": "2025-06-04",
+    "date": "2025-06-04T18:30:00",
     "tags": ["inicio", "bienvenida"]
   },
   {
     "slug": "otro-post",
     "title": "Otro post",
-    "date": "2025-06-04"
+    "date": "2025-06-04T19:00:00",
+    "tags": ["explicacion", "estructura"]
   }
 ]

@@ -63,3 +63,21 @@ body.dark {
   --header: #111;
   --header-text: #fff;
 }
+.post-banner {
+  width: 100%;
+  height: 120px;
+  background: #e0e7ef;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #0057b8;
+  margin-bottom: 1.5rem;
+}
+.post-date {
+  color: #888;
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  font-style: italic;
+}
