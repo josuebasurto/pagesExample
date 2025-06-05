@@ -62,4 +62,14 @@ Este es el blog personal de Josue Basurto, alojado en GitHub Pages.
 
 ---
 
-Hecho con ❤️ por [@josuebasurto](https://github.com/josuebasurto)
+## 🤖 Sobre este proyecto
+
+Este proyecto fue realizado con **Vibe Coding** y [GitHub Copilot](https://github.com/features/copilot), utilizando el modelo **GPT-4.1** de OpenAI.
+
+Si deseas más información sobre cómo se desarrolló, las herramientas utilizadas o el proceso de colaboración con IA, no dudes en contactarme o revisar la documentación de Copilot y Vibe Coding.
+
+**Tiempo empleado de inicio a fin:** Aproximadamente 1 hora ⏱️
+
+---
+
+Hecho con ❤️
