@@ -3,12 +3,14 @@
     "slug": "hola-mundo",
     "title": "Hola mundo",
     "date": "2025-06-04T18:30:00",
-    "tags": ["inicio", "bienvenida"]
+    "tags": ["inicio", "bienvenida"],
+    "banner": "images/banners/hola-mundo.jpg"
   },
   {
     "slug": "otro-post",
     "title": "Otro post",
     "date": "2025-06-04T19:00:00",
-    "tags": ["explicacion", "estructura"]
+    "tags": ["explicacion", "estructura"],
+    "banner": "images/banners/otro-post.jpg"
   }
 ]

@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch('posts.json')
     .then(res => res.json())
     .then(posts => {
+      // Ordena los posts por fecha descendente
+      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
       const postsContainer = document.getElementById('blog-posts');
       Promise.all(
         posts.map(post =>
@@ -15,15 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function markdownToHtml(md) {
-  return md
+  // Procesa títulos primero
+  let html = md
     .replace(/^# (.*$)/gim, '<h2>$1</h2>')
     .replace(/^## (.*$)/gim, '<h3>$1</h3>')
     .replace(/^\* (.*$)/gim, '<li>$1</li>')
-    .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>')
-    .replace(/\n{2,}/g, '</p><p>')
-    .replace(/\n/g, '<br>')
-    .replace(/^<p>/, '')
-    .replace(/<\/p>$/, '');
+    .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>');
+
+  // Divide en bloques por dobles saltos de línea
+  html = html.split(/\n{2,}/).map(block => {
+    // Si ya es un título o lista, no lo envuelvas en <p>
+    if (/^<h[23]>.*<\/h[23]>$/.test(block.trim()) || /^<li>.*<\/li>$/.test(block.trim())) {
+      return block.trim();
+    }
+    return `<p>${block.trim()}</p>`;
+  }).join('');
+  return html;
 }
 
 function formatDate(dateStr) {
@@ -40,13 +49,21 @@ function formatDate(dateStr) {
 }
 
 function renderPostWithBanner(md, postMeta) {
-  const banner = `<div class="post-banner">
-    📢 Banner del post
+  const bannerUrl = postMeta?.banner || "https://placehold.co/700x120?text=Banner+del+post";
+  const banner = `<div class="post-banner-img">
+    <img src="${bannerUrl}" alt="Banner del post" style="width:100%;height:120px;object-fit:cover;border-radius:8px 8px 0 0;">
   </div>`;
   const dateHtml = postMeta?.date
     ? `<div class="post-date">${formatDate(postMeta.date)}</div>`
     : '';
-  return banner + dateHtml + markdownToHtml(md);
+  // Convierte el título en un enlace
+  let html = md.replace(/^# (.*$)/m, `<h2><a href="post.html?slug=${postMeta.slug}">$1</a></h2>`);
+  html = html
+    .replace(/^## (.*$)/gim, '<h3>$1</h3>')
+    .replace(/^\* (.*$)/gim, '<li>$1</li>')
+    .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>');
+  html = html.split(/\n{2,}/).map(p => `<p>${p.trim()}</p>`).join('');
+  return banner + dateHtml + html;
 }
 
 document.getElementById('toggle-theme').onclick = () => {

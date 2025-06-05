@@ -27,6 +27,10 @@ main {
   border-radius: 8px;
   box-shadow: 0 2px 8px #0001;
 }
+main p {
+  margin-bottom: 1.2em;
+  line-height: 1.7;
+}
 footer {
   text-align: center;
   color: #888;
@@ -51,11 +55,27 @@ h2 {
 }
 #social a {
   color: #0057b8;
-  text-decoration: none;
-  font-weight: bold;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s, background 0.2s;
+  border-radius: 3px;
+  padding: 1px 3px;
 }
 #social a:hover {
   text-decoration: underline;
+}
+a {
+  color: #0057b8;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 3px;
+  padding: 1px 3px;
+  transition: color 0.2s, background 0.2s;
+}
+a:hover, a:focus {
+  color: #fff;
+  background: #0057b8;
+  outline: none;
 }
 body.dark {
   --bg: #222;
@@ -74,6 +94,17 @@ body.dark {
   font-size: 2rem;
   color: #0057b8;
   margin-bottom: 1.5rem;
+}
+.post-banner-img {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.post-banner-img img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+  display: block;
 }
 .post-date {
   color: #888;
