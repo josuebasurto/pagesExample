@@ -1,12 +1,21 @@
+:root {
+  --bg: #f9f9f9;
+  --text: #222;
+  --header: #222;
+  --header-text: #fff;
+}
 body {
   font-family: system-ui, sans-serif;
   margin: 0;
   background: #f9f9f9;
   color: #222;
+  /* Fondo de puntitos tipo libreta */
+  background-image: radial-gradient(#bbb 0.7px, transparent 1.2px);
+  background-size: 18px 18px;
 }
 header {
-  background: #222;
-  color: #fff;
+  background: var(--header);
+  color: var(--header-text);
   padding: 2rem 1rem 1rem 1rem;
   text-align: center;
 }
@@ -47,4 +56,10 @@ h2 {
 }
 #social a:hover {
   text-decoration: underline;
+}
+body.dark {
+  --bg: #222;
+  --text: #f9f9f9;
+  --header: #111;
+  --header-text: #fff;
 }
