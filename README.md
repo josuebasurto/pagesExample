@@ -6,6 +6,12 @@ Este es el blog personal de Josue Basurto, alojado en GitHub Pages.
 
 ---
 
+## 🖼️ Vista previa
+
+![Vista previa del blog](./screenshot.png)
+
+---
+
 ## 🚀 ¿Cómo levantar el blog localmente?
 
 1. **Clona el repositorio:**
