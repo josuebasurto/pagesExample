@@ -16,23 +16,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/**
+ * Convierte texto Markdown a HTML básico para mostrar posts en el blog.
+ * Soporta títulos, listas, imágenes, enlaces, negritas, cursivas y separación de párrafos.
+ * @param {string} md - El texto en formato Markdown.
+ * @returns {string} - El HTML generado.
+ */
 function markdownToHtml(md) {
-  // Procesa títulos primero
-  let html = md
-    .replace(/^# (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^## (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^\* (.*$)/gim, '<li>$1</li>')
-    .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>');
+  // Títulos de nivel 1, 2 y 3
+  md = md.replace(/^# (.*)$/gim, '<h2>$1</h2>');
+  md = md.replace(/^## (.*)$/gim, '<h3>$1</h3>');
+  md = md.replace(/^### (.*)$/gim, '<h4>$1</h4>');
+  
+  // Imágenes
+  md = md.replace(/!\[(.*?)\]\((.*?)\)/gim, '<img src="$2" alt="$1" style="max-width:100%;">');
+  
+  // Enlaces
+  md = md.replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>');
+  
+  // Negritas y cursivas
+  md = md.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+  md = md.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+  
+  // Listas no ordenadas
+  md = md.replace(/^\* (.*)$/gim, '<li>$1</li>');
+  md = md.replace(/(<li>.*<\/li>)/gims, '<ul>$1</ul>');
 
-  // Divide en bloques por dobles saltos de línea
-  html = html.split(/\n{2,}/).map(block => {
-    // Si ya es un título o lista, no lo envuelvas en <p>
-    if (/^<h[23]>.*<\/h[23]>$/.test(block.trim()) || /^<li>.*<\/li>$/.test(block.trim())) {
-      return block.trim();
+  // Divide en bloques por dobles saltos de línea y envuelve en <p> si corresponde
+  return md.split(/\n{2,}/).map(block => {
+    const trimmed = block.trim();
+    // No envolver títulos, listas, imágenes o elementos de bloque en <p>
+    if (
+      /^<h[234]>.*<\/h[234]>$/.test(trimmed) ||
+      /^<ul>.*<\/ul>$/.test(trimmed) ||
+      /^<ol>.*<\/ol>$/.test(trimmed) ||
+      /^<img.*>$/.test(trimmed) ||
+      /^<table>.*<\/table>$/.test(trimmed) ||
+      trimmed === ''
+    ) {
+      return trimmed;
     }
-    return `<p>${block.trim()}</p>`;
+    return `<p>${trimmed}</p>`;
   }).join('');
-  return html;
 }
 
 function formatDate(dateStr) {
@@ -56,20 +81,23 @@ function renderPostWithBanner(md, postMeta) {
   const dateHtml = postMeta?.date
     ? `<div class="post-date">${formatDate(postMeta.date)}</div>`
     : '';
-  // Convierte el título en un enlace
+  
+  // Convierte el título principal en enlace a la página individual del post
   let html = md.replace(/^# (.*$)/m, `<h2><a href="post.html?slug=${postMeta.slug}">$1</a></h2>`);
-  html = html
-    .replace(/^## (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^\* (.*$)/gim, '<li>$1</li>')
-    .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank">$1</a>');
-  html = html.split(/\n{2,}/).map(p => `<p>${p.trim()}</p>`).join('');
+  html = markdownToHtml(html);
+  
   return banner + dateHtml + html;
 }
 
-document.getElementById('toggle-theme').onclick = () => {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : '');
-};
+// Funcionalidad del tema oscuro (si existe el botón)
+const toggleTheme = document.getElementById('toggle-theme');
+if (toggleTheme) {
+  toggleTheme.onclick = () => {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : '');
+  };
+}
+
 if (localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark');
 }

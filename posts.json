@@ -12,5 +12,19 @@
     "date": "2025-06-04T19:00:00",
     "tags": ["explicacion", "estructura"],
     "banner": "images/banners/otro-post.jpg"
+  },
+  {
+    "slug": "formatos",
+    "title": "Formatos",
+    "date": "2025-06-04T20:00:00",
+    "tags": ["markdown", "formatos", "guía"],
+    "banner": "images/banners/formatos-md.png"
+  },
+  {
+    "slug": "post-de-extension",
+    "title": "Post de extensión",
+    "date": "2025-06-04T21:00:00",
+    "tags": ["prueba", "largo", "lorem"],
+    "banner": "extension-blogpost.png"
   }
 ]
