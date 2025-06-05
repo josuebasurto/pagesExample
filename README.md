@@ -8,7 +8,7 @@ Este es el blog personal de Josue Basurto, alojado en GitHub Pages.
 
 ## 🖼️ Vista previa
 
-![Vista previa del blog](./screenshot.png)
+![Vista previa del blog](images/image.png)
 
 ---
 
